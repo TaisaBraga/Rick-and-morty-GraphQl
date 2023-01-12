@@ -4,6 +4,10 @@ import { Character, GET_CHARACTERS } from "../../queries/Queries";
 
 export const Card = () => {
   const { data } = useQuery<{ characters: Character }>(GET_CHARACTERS);
+
+  // const useStyles = makeStyles(() => {
+
+  // })
   return (
     <div>
       {data?.characters.results.map((character: any) => (

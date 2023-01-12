@@ -1,22 +1,19 @@
-import { useQuery } from '@apollo/client'
+import { makeStyles } from '@material-ui/core/styles';
 import Home from './components/Home/Home';
-import { Character, GET_CHARACTERS } from './queries/Queries';
 
+const useStyles = makeStyles(() => ({
+  title: {
+    color: "#DF608C"
+  }
+}))
 
 function App() {
-  const { loading, error, data } = useQuery(GET_CHARACTERS);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>an error occurred...</p>;
-  }
+  const classes = useStyles();
   return (
     <div className="App">
       <div>
-        <h1>Rick and Morty</h1>
+        <h1 className={classes.title}>Rick and Morty</h1>
         <Home />
       </div>
     </div>
