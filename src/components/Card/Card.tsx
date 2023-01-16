@@ -10,31 +10,26 @@ const useStyles = makeStyles(() => ({
     flexWrap: "wrap",
     justifyContent: "center",
     margin: "2em",
-
   },
   characterDiscribe: {
     alignItems: "center",
     background: "radial-gradient(circle, rgba(10,21,10,0.29744397759103647) 0%, rgba(14,29,17,0.7008053221288515) 100%)",
-    boxShadow: "6px 2px 5px #32CD32",
-    borderColor: "#32CD32",
-    borderStyle: "solid",
     borderRadius: "5%",
-
+    borderStyle: "solid",
     color: "#fff",
     display: "flex",
-    flexWrap: "wrap",
     flexDirection: "column",
+    flexWrap: "wrap",
+    fontFamily: "Klee One",
     justifyContent: "center",
     margin: "1em",
     padding: "1em",
-    "& p": {
+    "& img": {
+      borderRadius: "50%",
+      marginBottom: "0.6em",
+      width: "30%",
     }
-
-  },
-  cardImage: {
-    borderRadius: "50%",
-    width: "30%",
-  },
+  }
 }))
 
 export const Card = () => {
@@ -44,17 +39,28 @@ export const Card = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.cardContainer}>
-      {data?.characters.results.map((character: any) => (
-        <div className={classes.characterDiscribe} key={character.id}>
-          <img className={classes.cardImage} src={character.image} alt="Avatar" />
-          <h4>{character.name} </h4>
-          <p>Species: {character.species}</p>
-          <p>Status: {character.status}</p>
-          <p>Type:{character.type}</p>
+    <div style={{ paddingBottom: "20px" }}>
+      <div className={classes.cardContainer}>
+        {data?.characters.results.map((character: any) => (
+          <div className={classes.characterDiscribe}
+            style={{
+              borderColor: character.status === "Alive" ? "#32CD32" : "#FF0000",
+              boxShadow: character.status === "Alive" ?
+                "6px 2px 5px #32CD32" : " 6px 2px 5px #FF0000"
+            }}
+            key={character.id}
+          >
+            <img src={character.image} alt="Avatar" />
+            <h4>{character.name} </h4>
+            <p>Specie: {character.species}</p>
+            <p>Status: {character.status}</p>
+            <p>Type: {character.type === "" ? "Unknown" : character.type}</p>
+          </div>
+        ))}
+      </div>
+      <div>
 
-        </div>
-      ))}
+      </div>
     </div>
   )
 }

@@ -7,8 +7,7 @@ export type Character = {
   name: string,
   species: string,
   status: string,
-  type: string
-
+  type: string,
 }
 
 export const GET_CHARACTERS = gql`
