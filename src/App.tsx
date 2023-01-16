@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
     color: "#008B8B",
     fontFamily: 'Rubik Bubbles',
     fontSize: "3.5em",
-    margin: "0.5em",
+    padding: "0.5em",
     textAlign: "center",
     WebkitTextStrokeWidth: "0.5px",
     WebkitTextStrokeColor: '#32CD32',
