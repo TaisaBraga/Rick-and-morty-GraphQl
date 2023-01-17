@@ -22,16 +22,16 @@ export const GET_CHARACTERS = gql`
     characters(page: $page){
       results{
         id
-        image
+        image,
         name,
         species,
         status,
         type,
       },
       info {
-        next
-        pages
-        prev
+        next,
+        pages,
+        prev,
       }
     }
   }
