@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
-import Home from './components/Home/Home';
 import "./App.css"
+import Home from './components/Home/Home';
 
 const useStyles = makeStyles(() => ({
   title: {

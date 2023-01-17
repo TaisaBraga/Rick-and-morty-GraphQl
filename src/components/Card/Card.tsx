@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
-import { useState } from "react";
 import { Character, GET_CHARACTERS } from "../../queries/Queries";
 
 const useStyles = makeStyles(() => ({
@@ -33,10 +32,26 @@ const useStyles = makeStyles(() => ({
 }))
 
 export const Card = () => {
-  const [page, setPage] = useState(2);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const { data } = useQuery<{ characters: Character }>(GET_CHARACTERS);
+  const { data, fetchMore } = useQuery<{ characters: Character }>(GET_CHARACTERS, {
+    variables: {
+      page: 1,
+    }
+  });
   const classes = useStyles();
+
+  const handleClick = () => {
+    fetchMore({
+      variables: { page: data?.characters.info.next },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        fetchMoreResult.characters.results = [
+          ...prevResult.characters.results,
+          ...fetchMoreResult.characters.results
+        ]
+        return fetchMoreResult;
+      }
+    })
+  };
+
 
   return (
     <div style={{ paddingBottom: "20px" }}>
@@ -59,7 +74,7 @@ export const Card = () => {
         ))}
       </div>
       <div>
-
+        <button onClick={handleClick}>CARREGAR MAIS</button>
       </div>
     </div>
   )
