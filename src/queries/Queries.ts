@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 
+
 export type Info = {
   next: number
   pages: number
