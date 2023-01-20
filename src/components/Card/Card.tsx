@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Character, GET_CHARACTERS } from "../../queries/Queries";
 
 const useStyles = makeStyles(() => ({
@@ -30,15 +29,6 @@ const useStyles = makeStyles(() => ({
       marginBottom: "0.6em",
       width: "30%",
     }
-  },
-  loadingMorePage: {
-    display: "flex",
-    color: "#32CD32",
-    cursor: "pointer",
-    fontFamily: "Schoolbell",
-    fontSize: "1.3em",
-    justifyContent: "center",
-    textShadow: "3px 3px 5px #32CD32",
   }
 }))
 
@@ -50,22 +40,8 @@ export const Card = () => {
   });
   const classes = useStyles();
 
-  const handleAddPageClick = () => {
-    fetchMore({
-      variables: { page: data?.characters.info.next },
-      updateQuery: (prevResult, { fetchMoreResult }) => {
-        fetchMoreResult.characters.results = [
-          ...prevResult.characters.results,
-          ...fetchMoreResult.characters.results
-        ]
-        return fetchMoreResult;
-      }
-    })
-  };
-
-
   return (
-    <div style={{ paddingBottom: "20px", width: "100%" }}>
+    <div style={{ paddingBottom: "20px", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div className={classes.cardContainer}>
         {data?.characters.results.map((character: any) => (
           <div className={classes.characterDiscribe}
@@ -83,11 +59,6 @@ export const Card = () => {
             <p>Type: {character.type === "" ? "Unknown" : character.type}</p>
           </div>
         ))}
-      </div>
-      <div className={classes.loadingMorePage}>
-        <p onClick={handleAddPageClick}>Loading More...
-          <ExpandMoreIcon />
-        </p>
       </div>
     </div>
   )
