@@ -8,4 +8,7 @@
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
+  margin: 0 auto;
+  height: auto;
+  overflow: hidden;
 }

@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
 import { Character, GET_CHARACTERS } from "../../queries/Queries";
+import { PropagateLoader } from 'react-spinners';
 
 const useStyles = makeStyles(() => ({
   cardContainer: {
@@ -33,10 +34,10 @@ const useStyles = makeStyles(() => ({
 }))
 
 export const Card = () => {
-  const { data, fetchMore } = useQuery<{ characters: Character }>(GET_CHARACTERS, {
+  const { data } = useQuery<{ characters: Character }>(GET_CHARACTERS, {
     variables: {
       page: 1,
-    }
+    },
   });
   const classes = useStyles();
 
