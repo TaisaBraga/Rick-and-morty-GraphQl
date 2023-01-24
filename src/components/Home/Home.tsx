@@ -5,13 +5,30 @@ import { Character, GET_CHARACTERS } from '../../queries/Queries';
 import { Card } from '../Card/Card';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useState } from 'react';
+import character from "../../assets/character.png";
 
 const useStyles = makeStyles(() => ({
+  errorMessage: {
+    alignItems: "center",
+    color: "#fff",
+    display: "inline-block",
+    fontFamily: 'Syne Mono',
+    fontSize: "2.5em",
+    height: "75vh",
+    margin: "0 auto",
+    textAlign: "center",
+    width: "100vw",
+    "& img": {
+      width: "50%",
+    }
+  },
   loaderDiv: {
     alignItems: "center",
     display: "flex",
     justifyContent: "center",
-    margin: "300px",
+    flexDirection: "row",
+    width: "100vw",
+    height: "100vh",
   },
   loadingMorePage: {
     display: "flex",
@@ -68,17 +85,25 @@ export const Home = () => {
           </div>
         ) : (null)
       }
-      {error && <p>Error! {error.message}</p>}
-      <div className={classes.loadingMorePage}>
-        {
-          data?.characters.info.next === null ? ('') :
-            (
+      {
+        error || loading || data?.characters.info.next === null ? ('') :
+          (
+            <div className={classes.loadingMorePage}>
               <p onClick={handleAddPageClick}>Loading More...
                 <ExpandMoreIcon />
               </p>
-            )
-        }
-      </div>
+            </div>
+          )
+      }
+      {
+        error && <div>
+          <div className={classes.errorMessage}>
+            <img src={character} alt="Rick Sanchez photo" />
+            <p>Something went wrong, please try again!</p>
+          </div>
+        </div>
+      }
+
     </div >
   )
 }
