@@ -54,21 +54,30 @@ export const Home = () => {
 
   return (
     <div>
-      {loading ? (
-        <div className={classes.loaderDiv}>
-          <DotLoader color="#32CD32" size="3em" />
-        </div>)
-        : (<Card />)
+      {
+        loading ? (
+          <div className={classes.loaderDiv}>
+            <DotLoader color="#32CD32" size="3em" />
+          </div>
+        ) : (<Card />)
       }
-      {clickToLoading === true ? (
-        <div className={classes.loadingMorePage}>
-          <PropagateLoader color="#32CD32" />
-        </div>) : (null)}
+      {
+        clickToLoading === true ? (
+          <div className={classes.loadingMorePage}>
+            <PropagateLoader color="#32CD32" />
+          </div>
+        ) : (null)
+      }
       {error && <p>Error! {error.message}</p>}
       <div className={classes.loadingMorePage}>
-        <p onClick={handleAddPageClick}>Loading More...
-          <ExpandMoreIcon />
-        </p>
+        {
+          data?.characters.info.next === null ? ('') :
+            (
+              <p onClick={handleAddPageClick}>Loading More...
+                <ExpandMoreIcon />
+              </p>
+            )
+        }
       </div>
     </div >
   )

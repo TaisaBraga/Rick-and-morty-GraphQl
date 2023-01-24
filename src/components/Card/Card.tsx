@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
 import { Character, GET_CHARACTERS } from "../../queries/Queries";
-import { PropagateLoader } from 'react-spinners';
 
 const useStyles = makeStyles(() => ({
   cardContainer: {
