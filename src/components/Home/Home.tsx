@@ -1,4 +1,4 @@
-import { NetworkStatus, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { makeStyles } from '@material-ui/core/styles';
 import { DotLoader, PropagateLoader } from 'react-spinners';
 import { Character, GET_CHARACTERS } from '../../queries/Queries';
@@ -6,22 +6,9 @@ import { Card } from '../Card/Card';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useState } from 'react';
 import character from "../../assets/character.png";
+import { ErrorPage } from '../ErrorPage/ErrorPage';
 
 const useStyles = makeStyles(() => ({
-  errorMessage: {
-    alignItems: "center",
-    color: "#fff",
-    display: "inline-block",
-    fontFamily: 'Syne Mono',
-    fontSize: "2.5em",
-    height: "75vh",
-    margin: "0 auto",
-    textAlign: "center",
-    width: "100vw",
-    "& img": {
-      width: "50%",
-    }
-  },
   loaderDiv: {
     alignItems: "center",
     display: "flex",
@@ -96,11 +83,9 @@ export const Home = () => {
           )
       }
       {
-        error && <div>
-          <div className={classes.errorMessage}>
-            <img src={character} alt="Rick Sanchez photo" />
-            <p>Something went wrong, please try again!</p>
-          </div>
+        error &&
+        <div>
+          <ErrorPage errorText={"Something went wrong, please try again!"} />
         </div>
       }
 
