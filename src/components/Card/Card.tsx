@@ -37,6 +37,7 @@ export const Card = () => {
     variables: {
       page: 1,
     },
+    errorPolicy: 'all',
   });
   const classes = useStyles();
 

@@ -39,6 +39,7 @@ export const Home = () => {
       variables: {
         page: 1,
       },
+      errorPolicy: 'all',
     });
 
   const handleAddPageClick = () => {
