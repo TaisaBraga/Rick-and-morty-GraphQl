@@ -1,6 +1,4 @@
-import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
-import { Character, GET_CHARACTERS } from "../../queries/Queries";
 import { useCharactersResultContext } from "../context/CardContext";
 
 const useStyles = makeStyles(() => ({

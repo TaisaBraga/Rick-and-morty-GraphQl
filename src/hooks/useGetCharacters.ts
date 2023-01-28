@@ -31,19 +31,22 @@ export interface Info {
   prev: number
 }
 
-export interface ICharacter {
-  results: object[]
+export interface ICharactersResult {
   id: number,
   image: string,
   name: string,
   species: string,
   status: string,
   type: string,
-  info: Info,
+}
+
+export interface IGetCharactersResponse {
+  results: ICharactersResult[],
+  info: Info
 }
 
 export interface IGetCharacters {
-  characters: { results: ICharacter[] }
+  characters: IGetCharactersResponse,
 
 }
 

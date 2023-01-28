@@ -1,10 +1,6 @@
 import character from "../../assets/character.png";
 import CachedIcon from '@material-ui/icons/Cached';
 import { makeStyles } from "@material-ui/core";
-import { useQuery } from "@apollo/client";
-import { Character, GET_CHARACTERS } from "../../queries/Queries";
-import { memo } from "react";
-import useGetCharacters from "../../hooks/useGetCharacters";
 import { useCharactersResultContext } from "../context/CardContext";
 
 const useStyles = makeStyles(() => ({

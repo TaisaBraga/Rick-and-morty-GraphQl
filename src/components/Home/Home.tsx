@@ -1,11 +1,8 @@
-import { useQuery } from '@apollo/client'
 import { makeStyles } from '@material-ui/core/styles';
 import { DotLoader, PropagateLoader } from 'react-spinners';
-import { Character, GET_CHARACTERS } from '../../queries/Queries';
 import { Card } from '../Card/Card';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useState } from 'react';
-import character from "../../assets/character.png";
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { useCharactersResultContext } from '../context/CardContext';
 
@@ -33,15 +30,6 @@ const useStyles = makeStyles(() => ({
 export const Home = () => {
   const classes = useStyles();
   const [clickToLoading, setClickToLoading] = useState<boolean>(false);
-  const { data, loading, error, fetchMore } = useQuery<{
-    characters: Character
-  }>(GET_CHARACTERS,
-    {
-      variables: {
-        page: 1,
-      },
-      errorPolicy: 'all',
-    });
 
   const {
     charactersResultData,
@@ -52,9 +40,9 @@ export const Home = () => {
 
   const handleAddPageClick = () => {
     setClickToLoading(true)
-    fetchMore({
-      variables: { page: data?.characters.info.next },
-      updateQuery: (prevResult, { fetchMoreResult }) => {
+    charactersResultFetchMore({
+      variables: { page: charactersResultData?.characters.info.next },
+      updateQuery: (prevResult: { characters: { results: any; }; }, { fetchMoreResult }: any) => {
         setClickToLoading(false)
         fetchMoreResult.characters.results = [
           ...prevResult.characters.results,
@@ -82,7 +70,8 @@ export const Home = () => {
         ) : (null)
       }
       {
-        charactersResultError || charactersResultLoading || data?.characters.info.next === null ? ('') :
+        charactersResultError || charactersResultLoading ||
+          charactersResultData?.characters.info.next === null ? ('') :
           (
             <div className={classes.loadingMorePage}>
               <p onClick={handleAddPageClick}>Loading More...
