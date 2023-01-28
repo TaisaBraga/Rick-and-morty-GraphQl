@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
 import { Character, GET_CHARACTERS } from "../../queries/Queries";
+import { useCharactersResultContext } from "../context/CardContext";
 
 const useStyles = makeStyles(() => ({
   cardContainer: {
@@ -33,18 +34,13 @@ const useStyles = makeStyles(() => ({
 }))
 
 export const Card = () => {
-  const { data } = useQuery<{ characters: Character }>(GET_CHARACTERS, {
-    variables: {
-      page: 1,
-    },
-    errorPolicy: 'all',
-  });
+  const { charactersResultData } = useCharactersResultContext()
   const classes = useStyles();
 
   return (
     <div style={{ paddingBottom: "20px", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div className={classes.cardContainer}>
-        {data?.characters.results.map((character: any) => (
+        {charactersResultData?.characters.results.map((character: any) => (
           <div className={classes.characterDiscribe}
             style={{
               borderColor: character.status === "Alive" ? "#32CD32" : "#FF0000",

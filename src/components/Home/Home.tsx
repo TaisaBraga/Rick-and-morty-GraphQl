@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useState } from 'react';
 import character from "../../assets/character.png";
 import { ErrorPage } from '../ErrorPage/ErrorPage';
+import { useCharactersResultContext } from '../context/CardContext';
 
 const useStyles = makeStyles(() => ({
   loaderDiv: {
@@ -42,6 +43,13 @@ export const Home = () => {
       errorPolicy: 'all',
     });
 
+  const {
+    charactersResultData,
+    charactersResultLoading,
+    charactersResultError,
+    charactersResultFetchMore } =
+    useCharactersResultContext();
+
   const handleAddPageClick = () => {
     setClickToLoading(true)
     fetchMore({
@@ -60,7 +68,7 @@ export const Home = () => {
   return (
     <div>
       {
-        loading ? (
+        charactersResultLoading ? (
           <div className={classes.loaderDiv}>
             <DotLoader color="#32CD32" size="3em" />
           </div>
@@ -74,7 +82,7 @@ export const Home = () => {
         ) : (null)
       }
       {
-        error || loading || data?.characters.info.next === null ? ('') :
+        charactersResultError || charactersResultLoading || data?.characters.info.next === null ? ('') :
           (
             <div className={classes.loadingMorePage}>
               <p onClick={handleAddPageClick}>Loading More...
@@ -84,7 +92,7 @@ export const Home = () => {
           )
       }
       {
-        error &&
+        charactersResultError &&
         <div>
           <ErrorPage errorText={"Something went wrong, please try again!"} />
         </div>

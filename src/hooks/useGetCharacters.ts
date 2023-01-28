@@ -2,7 +2,7 @@ import { gql, LazyQueryResult, OperationVariables, useLazyQuery, useQuery, Query
 import { ApolloError } from 'apollo-server';
 
 export const GET_CHARACTERS = gql`
-  query Characters($page: IFilterPage){
+  query Characters($page: Int!){
     characters(page: $page){
       results{
         id
@@ -43,24 +43,13 @@ export interface ICharacter {
 }
 
 export interface IGetCharacters {
-  characters: { result: ICharacter[] }
+  characters: { results: ICharacter[] }
 
 }
 
-// export type Characters = (
-//   page: IFilterPage
-// ) => Promise<LazyQueryResult<IGetCharacters, OperationVariables>>
-
-// export type useGetCharactersResult = {
-//   characters: Characters;
-//   loading: boolean;
-//   error: null | ApolloError;
-//   data: IGetCharacters | null | undefined;
-// }
-
 export type useGetCharactersResult = {
   variables: {
-    page?: number
+    page: number
   }
 }
 
@@ -68,19 +57,7 @@ export const useGetCharacters = ({
   variables
 }: useGetCharactersResult): QueryResult<IGetCharacters> =>
   useQuery<IGetCharacters>(GET_CHARACTERS, {
-    variables
+    variables,
   })
-// export const useGetCharacters = () => {
-//   const [getQuery, { data, loading, error, fetchMore, refetch }] = useLazyQuery<IGetCharacters>(GET_CHARACTERS);
-
-//   const getCharactersResult = async (
-//     page: IFilterPage
-//   ) => {
-//     return await getQuery({
-//       variables: { page },
-//     });
-//   };
-//   return { getCharactersResult, data, loading, error, fetchMore, refetch }
-// }
 
 export default useGetCharacters;

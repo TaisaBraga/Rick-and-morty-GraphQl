@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core";
 import { useQuery } from "@apollo/client";
 import { Character, GET_CHARACTERS } from "../../queries/Queries";
 import { memo } from "react";
+import useGetCharacters from "../../hooks/useGetCharacters";
+import { useCharactersResultContext } from "../context/CardContext";
 
 const useStyles = makeStyles(() => ({
   errorMessage: {
@@ -43,21 +45,14 @@ export const ErrorPage = (props: any) => {
   const { errorText } = props;
   const classes = useStyles();
 
-  const { refetch } = useQuery<{ characters: Character }>(GET_CHARACTERS, {
-    variables: { page: 1 },
-    errorPolicy: 'all',
-  });
-
-  const refreshPage = () => {
-    refetch({ page: 1 })
-  }
+  const { charactersResultRefetch } = useCharactersResultContext()
 
   return (
     <div className={classes.errorMessage}>
       <img src={character} alt="Rick Sanchez photo" />
       <div className={classes.refreshPageText}>
         <p>{errorText}</p>
-        <CachedIcon className={classes.refreshIcon} onClick={refreshPage} />
+        <CachedIcon className={classes.refreshIcon} onClick={() => charactersResultRefetch()} />
       </div>
     </div>
   )

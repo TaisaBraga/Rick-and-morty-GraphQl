@@ -34,11 +34,8 @@ export const CharactersResultProvider = ({ children }: CharacterResultContextPro
     error: charactersResultError,
     refetch: charactersResultRefetch,
     fetchMore: charactersResultFetchMore
-  } = useGetCharacters({
-    variables: {
-      page: 1,
-    }
-  });
+  } = useGetCharacters({ variables: { page: 1 } });
+
 
   const values = useMemo(
     () => ({
