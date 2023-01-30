@@ -1,8 +1,17 @@
 import { makeStyles } from '@material-ui/core/styles';
 import "./App.css"
 import { Home } from './components/Home/Home';
+import moon from './assets//moon.jpg'
 
 const useStyles = makeStyles(() => ({
+  app: {
+    backgroundImage: `url(${moon})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundAttachment: "fixed",
+    margin: "0 auto",
+    height: "auto",
+  },
   title: {
     color: "#008B8B",
     fontFamily: 'Rubik Bubbles',
@@ -22,7 +31,7 @@ function App() {
 
   const classes = useStyles();
   return (
-    <div className="App">
+    <div className={classes.app}>
       <div>
         <h1 className={classes.title}>Rick <span>And</span> Morty</h1>
         <Home />

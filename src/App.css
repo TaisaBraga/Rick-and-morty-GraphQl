@@ -2,12 +2,3 @@
   margin: 0;
   padding: 0;
 }
-
-.App {
-  background-image: url("./assets/moon.jpg");
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
-  margin: 0 auto;
-  height: auto;
-}
