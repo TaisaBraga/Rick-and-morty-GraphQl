@@ -1,5 +1,5 @@
 import { ApolloError } from "@apollo/client";
-import { createContext, ReactNode, useContext, useMemo } from "react"
+import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from "react"
 import useGetCharacters, { IGetCharacters } from "../../hooks/useGetCharacters";
 
 type CharacterResultContextProps = {
@@ -12,6 +12,8 @@ export interface ICharacterResultRequest {
   charactersResultError: ApolloError | undefined,
   charactersResultRefetch: () => void,
   charactersResultFetchMore: any,
+  handlePaginationClick: any,
+  clickToLoading: boolean
 }
 
 const inicialStates = {
@@ -20,6 +22,8 @@ const inicialStates = {
   charactersResultError: undefined,
   charactersResultRefetch: () => { },
   charactersResultFetchMore: () => { },
+  handlePaginationClick: () => { },
+  clickToLoading: false
 };
 
 export const CharacterResultContext = createContext<ICharacterResultRequest>(inicialStates);
@@ -27,6 +31,8 @@ export const CharacterResultContext = createContext<ICharacterResultRequest>(ini
 export const useCharactersResultContext = () => useContext(CharacterResultContext);
 
 export const CharactersResultProvider = ({ children }: CharacterResultContextProps) => {
+
+  const [clickToLoading, setClickToLoading] = useState<boolean>(false);
 
   const {
     data: charactersResultData,
@@ -36,6 +42,20 @@ export const CharactersResultProvider = ({ children }: CharacterResultContextPro
     fetchMore: charactersResultFetchMore
   } = useGetCharacters({ variables: { page: 1 } });
 
+  const handlePaginationClick = () => {
+    setClickToLoading(true)
+    charactersResultFetchMore({
+      variables: { page: charactersResultData?.characters.info.next },
+      updateQuery: (prevResult: { characters: { results: any; }; }, { fetchMoreResult }: any) => {
+        setClickToLoading(false)
+        fetchMoreResult.characters.results = [
+          ...prevResult.characters.results,
+          ...fetchMoreResult.characters.results
+        ]
+        return fetchMoreResult;
+      },
+    })
+  };
 
   const values = useMemo(
     () => ({
@@ -43,13 +63,17 @@ export const CharactersResultProvider = ({ children }: CharacterResultContextPro
       charactersResultLoading,
       charactersResultError,
       charactersResultRefetch,
-      charactersResultFetchMore
+      charactersResultFetchMore,
+      clickToLoading,
+      handlePaginationClick
     }), [
     charactersResultData,
     charactersResultLoading,
     charactersResultError,
     charactersResultRefetch,
-    charactersResultFetchMore
+    charactersResultFetchMore,
+    clickToLoading,
+    handlePaginationClick
   ])
   return (
     <CharacterResultContext.Provider value={values}>

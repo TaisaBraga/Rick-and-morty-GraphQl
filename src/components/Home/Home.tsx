@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DotLoader, PropagateLoader } from 'react-spinners';
 import { Card } from '../Card/Card';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useState } from 'react';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { useCharactersResultContext } from '../context/CardContext';
 
@@ -29,29 +28,14 @@ const useStyles = makeStyles(() => ({
 
 export const Home = () => {
   const classes = useStyles();
-  const [clickToLoading, setClickToLoading] = useState<boolean>(false);
 
   const {
     charactersResultData,
     charactersResultLoading,
     charactersResultError,
-    charactersResultFetchMore } =
+    handlePaginationClick,
+    clickToLoading } =
     useCharactersResultContext();
-
-  const handleAddPageClick = () => {
-    setClickToLoading(true)
-    charactersResultFetchMore({
-      variables: { page: charactersResultData?.characters.info.next },
-      updateQuery: (prevResult: { characters: { results: any; }; }, { fetchMoreResult }: any) => {
-        setClickToLoading(false)
-        fetchMoreResult.characters.results = [
-          ...prevResult.characters.results,
-          ...fetchMoreResult.characters.results
-        ]
-        return fetchMoreResult;
-      },
-    })
-  };
 
   return (
     <div>
@@ -74,7 +58,7 @@ export const Home = () => {
           charactersResultData?.characters.info.next === null ? ('') :
           (
             <div className={classes.loadingMorePage}>
-              <p onClick={handleAddPageClick}>Loading More...
+              <p onClick={handlePaginationClick}>Loading More...
                 <ExpandMoreIcon />
               </p>
             </div>
