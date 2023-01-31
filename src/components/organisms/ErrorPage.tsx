@@ -37,19 +37,26 @@ const useStyles = makeStyles(() => ({
 
 }));
 
-export const ErrorPage = (props: any) => {
-  const { errorText } = props;
+export const ErrorPage = () => {
   const classes = useStyles();
 
-  const { charactersResultRefetch } = useCharactersResultContext()
+  const {
+    charactersResultError,
+    charactersResultRefetch
+  } = useCharactersResultContext();
 
   return (
-    <div className={classes.errorMessage}>
-      <img src={character} alt="Rick Sanchez photo" />
-      <div className={classes.refreshPageText}>
-        <p>{errorText}</p>
-        <CachedIcon className={classes.refreshIcon} onClick={() => charactersResultRefetch()} />
-      </div>
-    </div>
+    <>
+      {
+        charactersResultError &&
+        <div className={classes.errorMessage}>
+          <img src={character} alt="Rick Sanchez photo" />
+          <div className={classes.refreshPageText}>
+            <p>Something went wrong, please try again!</p>
+            <CachedIcon className={classes.refreshIcon} onClick={() => charactersResultRefetch()} />
+          </div>
+        </div>
+      }
+    </>
   )
 }
