@@ -11,6 +11,13 @@ const useStyles = makeStyles(() => ({
     backgroundAttachment: "fixed",
     margin: "0 auto",
     height: "auto",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    overflow: "auto",
+    position: "absolute",
+    scrollBehavior: "smooth",
   },
   title: {
     color: "#008B8B",
