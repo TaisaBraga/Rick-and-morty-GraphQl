@@ -55,6 +55,7 @@ export const Card = () => {
           </div>
         ))}
       </div>
+      <p style={{ color: "#fff", cursor: "pointer" }} onClick={() => window.scrollTo(0, 0)}>UP</p>
     </div>
   )
 }

@@ -1,5 +1,4 @@
-import { gql, LazyQueryResult, OperationVariables, useLazyQuery, useQuery, QueryResult } from '@apollo/client'
-import { ApolloError } from 'apollo-server';
+import { gql, useQuery, QueryResult } from '@apollo/client'
 
 export const GET_CHARACTERS = gql`
   query Characters($page: Int!){
