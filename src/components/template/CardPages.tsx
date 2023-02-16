@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { DotLoader } from 'react-spinners';
-import { Card } from '../molecules/Card';
 import { useCharactersResultContext } from '../context/CardContext';
+import { CardsList } from '../organisms/CardsList';
 
 const useStyles = makeStyles(() => ({
   loaderDiv: {
@@ -25,7 +25,7 @@ export const CardPages = () => {
           <div className={classes.loaderDiv}>
             <DotLoader color="#32CD32" size="3em" />
           </div>
-        ) : (<Card />)
+        ) : (<CardsList />)
       }
     </>
   )

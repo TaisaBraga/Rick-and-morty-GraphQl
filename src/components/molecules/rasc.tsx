@@ -1,8 +1,4 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { useState } from "react";
-import ReactCardFlip from "react-card-flip";
-import { BackCard } from "../atoms/BackCard";
-import { FrontCard } from "../atoms/FrontCard";
 import { useCharactersResultContext } from "../context/CardContext";
 
 const useStyles = makeStyles(() => ({
@@ -35,23 +31,31 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export const Card = ({ image, name, species, status, type }: any) => {
+export const Card = () => {
+  const { charactersResultData } = useCharactersResultContext()
   const classes = useStyles();
-  const [isFlipped, setIsFlipped] = useState(false)
 
   return (
     <div style={{ paddingBottom: "20px", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div className={classes.cardContainer}>
-        <ReactCardFlip isFlipped={isFlipped}>
-          <div onClick={() => setIsFlipped(true)}>
-            <FrontCard image={image} />
+        {charactersResultData?.characters.results.map((character: any) => (
+          <div className={classes.characterDiscribe}
+            style={{
+              borderColor: character.status === "Alive" ? "#32CD32" : "#FF0000",
+              boxShadow: character.status === "Alive" ?
+                "6px 2px 5px #32CD32" : " 6px 2px 5px #FF0000"
+            }}
+            key={character.id}
+          >
+            <img src={character.image} alt="Avatar" />
+            <h4>{character.name} </h4>
+            <p>Specie: {character.species}</p>
+            <p>Status: {character.status}</p>
+            <p>Type: {character.type === "" ? "Unknown" : character.type}</p>
           </div>
-          <div onClick={() => setIsFlipped(false)}>
-            <BackCard name={name} species={species} status={status} type={type} />
-          </div>
-        </ReactCardFlip >
+        ))}
       </div>
-
+      <p style={{ color: "#fff", cursor: "pointer" }} onClick={() => window.scrollTo(0, 0)}>UP</p>
     </div>
   )
 }

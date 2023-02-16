@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import "./App.css"
-import { Home } from './components/template/Home/Home';
-import moon from './assets//moon.jpg'
+import { Home } from './components/view/Home';
+import moon from './assets/moon.jpg'
 
 const useStyles = makeStyles(() => ({
   app: {
