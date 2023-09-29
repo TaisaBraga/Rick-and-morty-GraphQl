@@ -7,6 +7,7 @@ import { defineConfig } from 'vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: "/Rick-and-morty-GraphQl/",
   test: {
     globals: true,
     setupFiles: 'src/setupTests.js',
